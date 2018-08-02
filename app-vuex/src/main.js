@@ -6,14 +6,23 @@ Vue.config.productionTip = false
 Vue.use(Vuex)
 
 const store = new Vuex.Store({
-    state: {
-      count: 0
-    },
-    mutations: {
-      increment(state) {
-        state.count++
-      }
+  state: {
+    count: 0,
+    todos: [
+      {id: 1, text: '...', done: true},
+      {id: 2, text: '...', done: false},
+    ]
+  },
+  getters: {
+    doneTodos(state) {
+      return state.todos.filter(state => state.done)
     }
+  },
+  mutations: {
+    increment(state) {
+      state.count++
+    }
+  }
 })
 
 new Vue({

@@ -18,10 +18,21 @@ const store = new Vuex.Store({
       return state.todos.filter(state => state.done)
     }
   },
+  // 同步
   mutations: {
     increment(state, n) {
       !n && (n = 1)
       state.count += n
+    }
+  },
+  // 异步
+  actions: {
+    plus({commit}, n) {
+      console.log('call...')
+      setTimeout(function() {
+        console.log('After three seconds commit the mutation...')
+        commit('increment', n)
+      }, 3000)
     }
   }
 })
@@ -30,7 +41,3 @@ new Vue({
   store,
   render: h => h(App)
 }).$mount('#app')
-
-console.log('before commit: ', store.state.count)
-store.commit('increment')
-console.log('after commit: ', store.state.count)
